@@ -1,0 +1,34 @@
+{
+  "id": "qwen25_coder_1.5b_q8_p100_2026-08-27",
+  "status": "pass",
+  "host": "t440",
+  "gpu": "Tesla P100-PCIE-16GB #0",
+  "git_head": "01dabe777588f77dea7798b3bd4a8073aacb6b38",
+  "git_short": "01dabe77",
+  "working_tree": "dirty",
+  "binary_path": "/data/cargo-target/release/cesarops-inference",
+  "binary_sha256": "90b4ff5e04e88f897a3948ce60a15b59ec39321938fc5699b195306a87f6def7",
+  "binary_mtime_utc": "2026-08-27T05:58:00Z",
+  "source_sha256": {
+    "src/main.rs": "968ebd5b9be2df1e0c584a4400fc4bde662e10f4e1ab09d3d06b555ddbb8ada0",
+    "src/tensor_loader_safe.rs": "38ded51c8ff1509a0bcf6bcb97ad89b2dd3bcad1ae431285421ab2b0da6674ee",
+    "src/gemma4_gpu_runner.rs": "963156671b27a45c50a6fd54f197f64e1133aa44b50aec01e5529e132735da82",
+    "src/gemma4_layer.rs": "64582599c02991074a62c13ff3f0a343b2aaa951e3990a8b911c606db2410b5c",
+    "src/gemma4_runner.rs": "4ea0080c2469fcb018956a64f2a2bc0cd83eaedfd8ef21cf9af0635e2dc4931d"
+  },
+  "model": "/mnt/raid0/models/Qwen2.5-Coder-1.5B-Instruct-Q8_0.gguf",
+  "long_run": {
+    "max_tokens": 128,
+    "tokens": 128,
+    "seconds": 22.45,
+    "tok_per_s": 5.7,
+    "prompt": "Write a short Python function that returns the factorial of n. Include a docstring and one example.",
+    "correctness": "coherent recursive factorial with docstring and example print(factorial(5))"
+  },
+  "short_run": {
+    "max_tokens": 8,
+    "output": "2+2 equals 4.",
+    "tok_per_s": 2.4
+  },
+  "pass_floor_tok_per_s": 5.0
+}

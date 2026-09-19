@@ -1,0 +1,99 @@
+[package]
+name = "cesarops-inference"
+version = "0.1.0"
+edition = "2021"
+description = "Native Rust LLM inference engine — zero-copy GridBuffer, distributed KV cache, custom FP16 shaders"
+
+[lib]
+name = "cesarops_inference"
+path = "src/lib.rs"
+
+[[bin]]
+name = "cesarops-inference"
+path = "src/main.rs"
+
+[[bin]]
+name = "shader_lab"
+path = "src/bin/shader_lab.rs"
+
+[[bin]]
+name = "validate_dequant"
+path = "src/bin/validate_dequant.rs"
+
+[[bin]]
+name = "probe_moe_layout"
+path = "src/bin/probe_moe_layout.rs"
+
+[[bin]]
+name = "run_gemma4"
+path = "src/bin/run_gemma4.rs"
+
+[[bin]]
+name = "serve_gemma4"
+path = "src/bin/serve_gemma4.rs"
+
+[[bin]]
+name = "gpu_test"
+path = "src/bin/gpu_test.rs"
+
+[[bin]]
+name = "production-satellite-downloader"
+path = "src/bin/production_satellite_downloader.rs"
+
+[[bin]]
+name = "verify_expert_layout"
+path = "src/bin/verify_expert_layout.rs"
+
+[dependencies]
+# GPU compute
+wgpu = "24"
+ash = "0.38"
+pollster = "0.4"
+
+# Numeric types
+half = { version = "2", features = ["bytemuck"] }
+bytemuck = { version = "1", features = ["derive"] }
+
+# Memory mapping (GGUF zero-init from RAID)
+memmap2 = "0.9"
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Async runtime + HTTP server
+tokio = { version = "1", features = ["full"] }
+axum = "0.8"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Error handling
+thiserror = "1"
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+reqwest = { version = "0.12", features = ["cookies", "rustls-tls"] }
+
+# System calls (NUMA pinning, mlock)
+libc = "0.2"
+rand = "0.10.1"
+tokenizers = "0.23.1"
+rustc-hash = "2"
+parking_lot = "0.12"
+
+# Curvelet drift correction + FFT for satellite tile alignment.
+# nauticuvs is the INTERNAL full-precision f64 version (publish=false).
+ndarray = "0.16"
+num-complex = "0.4"
+rustfft = "6.2"
+nauticuvs = { path = "../nauticuvs", package = "nauticuvs-full" }
+
+# Candle ML framework (WebGPU backend for P100)
+# candle-core = { path = "../crates/candle-fork/candle-core" }
+
+[features]
+default = ["wgpu-backend"]
+wgpu-backend = []
+cuda-backend = []
+engine-debug = []
